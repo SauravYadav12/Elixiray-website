@@ -99,28 +99,43 @@ export function Eyebrow({ children }: { children: ReactNode }) {
   );
 }
 
+const BEAMS = [
+  { d: "M10.5 15 30 5.5v5Z", color: "#f97316" }, // formulate
+  { d: "M11 16 32 13.5v5Z", color: "#e1306c" }, // build
+  { d: "M10.5 17 30 21.5v5Z", color: "#7c3aed" }, // sell
+];
+
 /**
- * Mark: a white drop (the elixir) with a spark (the ray) on a warm-to-violet tile.
+ * Mark: a single spark refracting into three beams — one idea, carried through
+ * formulation, build and sales. Read together the beams also suggest an "E".
  * Brand colours are fixed so the logo looks the same in both themes.
  */
 export function Logo({ className = "" }: { className?: string }) {
   const id = useId();
   return (
     <span className={`inline-flex items-center gap-2.5 ${className}`}>
-      <svg viewBox="0 0 32 32" className="h-8 w-8" aria-hidden>
+      <svg viewBox="0 0 34 32" className="h-8 w-[2.125rem]" aria-hidden>
         <defs>
-          <linearGradient id={id} x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stopColor="#f97316" />
-            <stop offset="0.55" stopColor="#e1306c" />
-            <stop offset="1" stopColor="#7c3aed" />
-          </linearGradient>
+          <radialGradient id={id} cx="0.35" cy="0.35" r="0.75">
+            <stop offset="0" stopColor="#fdba74" />
+            <stop offset="1" stopColor="#f97316" />
+          </radialGradient>
         </defs>
-        <rect width="32" height="32" rx="9" fill={`url(#${id})`} />
-        <path d="M15 7.5C15 7.5 9 14 9 18.5a6 6 0 0 0 12 0C21 14 15 7.5 15 7.5Z" fill="#fff" />
-        <path d="M12.6 18.8a2.6 2.6 0 0 0 2.2 2.4" fill="none" stroke={`url(#${id})`} strokeWidth="1.6" strokeLinecap="round" />
-        <path d="M23 5.5l.9 1.9 1.9.9-1.9.9-.9 1.9-.9-1.9-1.9-.9 1.9-.9z" fill="#fff" />
+        <circle cx="5.5" cy="16" r="4" fill={`url(#${id})`} />
+        {BEAMS.map((b) => (
+          <path key={b.color} d={b.d} fill={b.color} stroke={b.color} strokeWidth="1.4" strokeLinejoin="round" />
+        ))}
       </svg>
-      <span className="text-[1.15rem] font-bold tracking-[-0.01em]">Elixiray</span>
+      <span className="text-[1.2rem] font-bold tracking-[-0.02em]">Elixiray</span>
     </span>
+  );
+}
+
+/** Lucide no longer ships brand marks, so the LinkedIn glyph lives here. */
+export function LinkedInIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden>
+      <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0Z" />
+    </svg>
   );
 }

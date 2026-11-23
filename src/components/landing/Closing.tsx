@@ -1,10 +1,17 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowRight, CheckCircle2, Mail, MapPin, Plus } from "lucide-react";
+import { ArrowRight, Building2, CheckCircle2, Mail, MapPin, Plus } from "lucide-react";
 import Link from "next/link";
 import { useState, type FormEvent } from "react";
-import { EASE, Eyebrow, Logo, Magnetic, Reveal, SplitWords } from "../primitives";
+import { EASE, Eyebrow, LinkedInIcon, Logo, Magnetic, Reveal, SplitWords } from "../primitives";
+
+const CONTACT = {
+  email: "sales@elixiray.com",
+  office: "Signature Tower, Kolar Road, Bhopal",
+  headOffice: "Mumbai",
+  linkedin: "https://www.linkedin.com/company/elixiray-consulting/",
+};
 
 const FAQS = [
   {
@@ -112,13 +119,24 @@ export function Contact() {
                 opportunity, whether or not we work together.
               </p>
             </div>
-            <div className="space-y-3 text-sm text-paper/70">
-              <p className="flex items-center gap-3">
-                <Mail className="h-4 w-4 text-gold" /> hello@elixiray.com
+            <div className="space-y-4 text-sm text-paper/70">
+              <a href={`mailto:${CONTACT.email}`} className="flex items-center gap-3 transition-colors hover:text-paper">
+                <Mail className="h-4 w-4 shrink-0 text-gold" /> {CONTACT.email}
+              </a>
+              <p className="flex items-start gap-3">
+                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-gold" /> {CONTACT.office}
               </p>
-              <p className="flex items-center gap-3">
-                <MapPin className="h-4 w-4 text-gold" /> Remote-first · working with teams worldwide
+              <p className="flex items-start gap-3">
+                <Building2 className="mt-0.5 h-4 w-4 shrink-0 text-gold" /> Head office: {CONTACT.headOffice}
               </p>
+              <a
+                href={CONTACT.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 transition-colors hover:text-paper"
+              >
+                <LinkedInIcon className="h-4 w-4 shrink-0 text-gold" /> Follow us on LinkedIn
+              </a>
             </div>
           </div>
 
@@ -228,11 +246,22 @@ export function Footer() {
               <p className="text-sm font-medium text-mute">Company</p>
               <a href="#method" className="block text-paper/70 hover:text-paper">Method</a>
               <a href="#work" className="block text-paper/70 hover:text-paper">Work</a>
-              <a href="#contact" className="block text-paper/70 hover:text-paper">Contact</a>
-            </div>
-            <div className="space-y-3">
-              <p className="text-sm font-medium text-mute">Design</p>
               <Link href="/samples" className="block text-paper/70 hover:text-paper">Landing samples</Link>
+            </div>
+            <div className="col-span-2 space-y-3 sm:col-span-1">
+              <p className="text-sm font-medium text-mute">Contact</p>
+              <a href={`mailto:${CONTACT.email}`} className="block text-paper/70 hover:text-paper">{CONTACT.email}</a>
+              <p className="text-paper/70">{CONTACT.office}</p>
+              <p className="text-paper/70">Head office: {CONTACT.headOffice}</p>
+              <a
+                href={CONTACT.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Elixiray on LinkedIn"
+                className="inline-grid h-9 w-9 place-items-center rounded-full border border-fg/10 text-paper/70 transition-colors hover:border-fg/25 hover:text-paper"
+              >
+                <LinkedInIcon className="h-4 w-4" />
+              </a>
             </div>
           </div>
         </div>
